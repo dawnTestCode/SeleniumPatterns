@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/!svn/ver/313/trunk/selenium-rc-patterns/lib
+END
+selenium-java-client-driver.jar
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/312/trunk/selenium-rc-patterns/lib/selenium-java-client-driver.jar
+END
+selenium-server.jar
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/312/trunk/selenium-rc-patterns/lib/selenium-server.jar
+END
