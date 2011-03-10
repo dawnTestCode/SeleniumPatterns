@@ -13,12 +13,12 @@ public class QuickFindBox extends BasePane {
 	private static final String INPUT_QUERY_CSS = "input[id=auto_complete_query]";
 	
 	public TextField searchEntryField;
-	public ClickableElement accounts;
+	public ClickableElement accountsMenuItem;
 
 	public QuickFindBox() throws Exception {
 		super();
 		searchEntryField = new TextField(INPUT_QUERY_CSS);
-		accounts = new ClickableElement("a:contains('Accounts')");
+		accountsMenuItem = new ClickableElement("a:contains('Accounts')");
 	}
 
 	@Override

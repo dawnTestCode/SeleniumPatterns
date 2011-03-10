@@ -2,7 +2,9 @@ package util.browserdriver;
 
 import java.io.IOException;
 import java.net.Socket;
+import java.net.UnknownHostException;
 
+import static org.junit.Assert.fail;
 import org.openqa.selenium.server.RemoteControlConfiguration;
 import org.openqa.selenium.server.SeleniumServer;
 
@@ -25,13 +27,9 @@ public abstract class SeleniumProxySingleton {
 		Socket socket = null;
 
         try {
-            socket = new Socket(SELENIUM_SERVER_HOST, SELENIUM_SERVER_PORT);
-
+            socket = checkWhetherPortIsInUse();
         } catch(Exception e) {
-            System.out.println("Nothing is listening on port " + SELENIUM_SERVER_PORT);
-            System.out.println("Launching SeleniumServer on port " + SELENIUM_SERVER_PORT);
-            jettyProxyInstance = startJettyProxy();
-            jettyProxyWasStartedByATest = true;
+            launchJettyProxy();
         }
 
         finally {
@@ -40,6 +38,20 @@ public abstract class SeleniumProxySingleton {
         
         return jettyProxyInstance;
         
+	}
+
+	private static void launchJettyProxy() throws Exception {
+		System.out.println("Nothing is listening on port " + SELENIUM_SERVER_PORT);
+		System.out.println("Launching SeleniumServer on port " + SELENIUM_SERVER_PORT);
+		jettyProxyInstance = startJettyProxy();
+		jettyProxyWasStartedByATest = true;
+	}
+
+	private static Socket checkWhetherPortIsInUse() throws Exception {
+		Socket socket;
+		socket = new Socket(SELENIUM_SERVER_HOST, SELENIUM_SERVER_PORT);
+		fail("Port " + SELENIUM_SERVER_PORT + " is in use and cannot be used by SeleniumProxySingleton; please use another port.");
+		return socket;
 	}
 
     protected static SeleniumServer startJettyProxy() throws Exception {

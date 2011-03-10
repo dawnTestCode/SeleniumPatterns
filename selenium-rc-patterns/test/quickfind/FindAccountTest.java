@@ -14,7 +14,7 @@ public class FindAccountTest extends BaseWebTest {
 	@Test
 	public void canFindExistingAccount() throws Exception {
 		QuickFindBox quickFind = (QuickFindBox) CommonComponents.topRightLinks.quickFind.clickToNewContainer();
-		quickFind.accounts.click();
+		quickFind.accountsMenuItem.click();
 		
 		AccountPage huckabiesPage = (AccountPage) quickFind.searchForAccount("Huckab", AccountPage.class);
 		assertTrue(huckabiesPage.title.reads("Huckabies"));

@@ -10,9 +10,8 @@ import com.thoughtworks.selenium.DefaultSelenium;
 public class BrowserDriver {
 	public static final String FIREFOX = "*firefox";
 	public static final String IEXPLORE = "*iexplore";
-	
-	
-	public static final String STANDARD_PAGE_LOAD_WAIT_TIME =  "60000";
+
+	public static final String STANDARD_PAGE_LOAD_WAIT_TIME = "60000";
 	public static final String STANDARD_DHTML_LOAD_WAIT_TIME = "60000";
 	private static final String TRUE = "true";
 
@@ -20,7 +19,7 @@ public class BrowserDriver {
 	public static String selectedBrowser = FIREFOX;
 
 	private static DefaultSelenium seleniumSingleton;
-	
+
 	private static Object Latch = new Object();
 	private static final int MS_PER_SECOND = 1000;
 	public static final String CSS_PREFIX = "css=";
@@ -45,12 +44,22 @@ public class BrowserDriver {
 			seleniumSingleton = new DefaultSelenium(
 					SeleniumProxySingleton.SELENIUM_SERVER_HOST,
 					SeleniumProxySingleton.SELENIUM_SERVER_PORT,
-					getBrowserForTesting(), DashBoard.FFCRM_DOMAIN);
+					getBrowserForTesting(), DashBoard.FFCRM_DOMAIN) {
+
+				// FYI: weird bug fix, see
+				// http://code.google.com/p/selenium/issues/detail?id=408
+				@Override
+				public void open(final String url) {
+					commandProcessor.doCommand("open", new String[] { url,
+							"true" });
+				}
+			};
+
 			seleniumSingleton.start();
 			seleniumSingleton.setSpeed("0");
 			seleniumSingleton.setTimeout(STANDARD_PAGE_LOAD_WAIT_TIME);
 			seleniumSingleton.windowMaximize();
-			
+
 			return seleniumSingleton;
 		} catch (Exception e) {
 			throw new RuntimeException(e);
@@ -89,7 +98,8 @@ public class BrowserDriver {
 
 	public static boolean isElementVisible(String cssLocator) {
 		injectJqueryIfAbsent();
-		return executeJavascript(JqueryCodeFactory.getVisibilityCode(cssLocator)).equals(TRUE);
+		return executeJavascript(
+				JqueryCodeFactory.getVisibilityCode(cssLocator)).equals(TRUE);
 	}
 
 	public static void assertNoAlertPresent() {
@@ -102,16 +112,20 @@ public class BrowserDriver {
 	}
 
 	public static void check(String locator) {
-		getInstance().check(LocatorStrategyIdentifier.prepareforSelenium(locator));
+		getInstance().check(
+				LocatorStrategyIdentifier.prepareforSelenium(locator));
 	}
 
 	public static boolean isElementPresent(String locator) {
-		if (LocatorStrategyIdentifier.isNonSeleniumCss(locator)) return isElementVisible(locator);
-		return getInstance().isElementPresent(LocatorStrategyIdentifier.prepareforSelenium(locator));
+		if (LocatorStrategyIdentifier.isNonSeleniumCss(locator))
+			return isElementVisible(locator);
+		return getInstance().isElementPresent(
+				LocatorStrategyIdentifier.prepareforSelenium(locator));
 	}
 
 	public static String getValue(String locator) {
-		return getInstance().getValue(LocatorStrategyIdentifier.prepareforSelenium(locator));
+		return getInstance().getValue(
+				LocatorStrategyIdentifier.prepareforSelenium(locator));
 	}
 
 	public static void chooseCancelOnNextConfirmation() {
@@ -123,13 +137,15 @@ public class BrowserDriver {
 	}
 
 	public static void click(String locator) {
-		if (LocatorStrategyIdentifier.isNonSeleniumCss(locator)) executeJavascript(JqueryCodeFactory.getClickCode(locator));
+		if (LocatorStrategyIdentifier.isNonSeleniumCss(locator))
+			executeJavascript(JqueryCodeFactory.getClickCode(locator));
 		else {
-			String preparedLocator = LocatorStrategyIdentifier.prepareforSelenium(locator);
+			String preparedLocator = LocatorStrategyIdentifier
+					.prepareforSelenium(locator);
 			getInstance().click(preparedLocator);
 		}
 	}
-	
+
 	public static String getAlert() {
 		return getInstance().getAlert();
 	}
@@ -139,21 +155,27 @@ public class BrowserDriver {
 	}
 
 	public static String getText(String locator) {
-		if (LocatorStrategyIdentifier.isNonSeleniumCss(locator)) return executeJavascript(JqueryCodeFactory.getTextCode(locator));
-		return getInstance().getText(LocatorStrategyIdentifier.prepareforSelenium(locator));
+		if (LocatorStrategyIdentifier.isNonSeleniumCss(locator))
+			return executeJavascript(JqueryCodeFactory.getTextCode(locator));
+		return getInstance().getText(
+				LocatorStrategyIdentifier.prepareforSelenium(locator));
 	}
 
 	public static boolean isChecked(String locator) {
-		return getInstance().isChecked(LocatorStrategyIdentifier.prepareforSelenium(locator));
+		return getInstance().isChecked(
+				LocatorStrategyIdentifier.prepareforSelenium(locator));
 	}
 
 	public static void select(String locator, String selection) {
-		getInstance().select(LocatorStrategyIdentifier.prepareforSelenium(locator), selection);
+		getInstance().select(
+				LocatorStrategyIdentifier.prepareforSelenium(locator),
+				selection);
 
 	}
 
 	public static void type(String locator, String entry) {
-		getInstance().type(LocatorStrategyIdentifier.prepareforSelenium(locator), entry);
+		getInstance().type(
+				LocatorStrategyIdentifier.prepareforSelenium(locator), entry);
 
 	}
 
@@ -162,25 +184,29 @@ public class BrowserDriver {
 	}
 
 	public static void selectFrame(String locator) {
-		getInstance().selectFrame(LocatorStrategyIdentifier.prepareforSelenium(locator));
+		getInstance().selectFrame(
+				LocatorStrategyIdentifier.prepareforSelenium(locator));
 	}
 
-	public static void assertLabelContainsText(TextLabel element, String expectedText) {
+	public static void assertLabelContainsText(TextLabel element,
+			String expectedText) {
 		assertTrue(element.getText().contains(expectedText));
 	}
 
 	public static String executeJavascript(String javascript) {
 		return getInstance().getEval(javascript);
 	}
-	
-	public static void injectJqueryIfAbsent()  {
-		if (jqueryDoesNotExistOnPage()) executeJavascript(JqueryCodeFactory.getJqueryLibraryString());
+
+	public static void injectJqueryIfAbsent() {
+		if (jqueryDoesNotExistOnPage())
+			executeJavascript(JqueryCodeFactory.getJqueryLibraryString());
 	}
 
 	private static boolean jqueryDoesNotExistOnPage() {
-		return getInstance().getEval(JqueryCodeFactory.getJqueryUndefinedString()).equals(TRUE);
+		return getInstance().getEval(
+				JqueryCodeFactory.getJqueryUndefinedString()).equals(TRUE);
 	}
-	
+
 	public static void sleepForASecond() {
 		try {
 			Thread.sleep(MS_PER_SECOND);
@@ -197,20 +223,25 @@ public class BrowserDriver {
 		}
 	}
 
-	public static void waitForElementVisible(String cssLocator)  {
+	public static void waitForElementVisible(String cssLocator) {
 		for (int second = 0;; second++) {
-			if (second >= Integer.valueOf(BrowserDriver.STANDARD_DHTML_LOAD_WAIT_TIME) / MS_PER_SECOND)
+			if (second >= Integer
+					.valueOf(BrowserDriver.STANDARD_DHTML_LOAD_WAIT_TIME)
+					/ MS_PER_SECOND)
 				fail("Timeout waiting for element to become visible.");
 
-			if (isElementVisible(cssLocator)) break;
+			if (isElementVisible(cssLocator))
+				break;
 			sleepForASecond();
 		}
 	}
-	
-	public static void waitForElement_NOT_Visible(String cssLocator) throws Exception {
+
+	public static void waitForElement_NOT_Visible(String cssLocator)
+			throws Exception {
 		for (int second = 0;; second++) {
 			if (second >= Integer
-					.valueOf(BrowserDriver.STANDARD_DHTML_LOAD_WAIT_TIME) / MS_PER_SECOND)
+					.valueOf(BrowserDriver.STANDARD_DHTML_LOAD_WAIT_TIME)
+					/ MS_PER_SECOND)
 				fail("Timeout waiting for element to become not visible.");
 
 			try {
@@ -224,8 +255,9 @@ public class BrowserDriver {
 			sleepForASecond();
 		}
 	}
-	
-	public static void waitForPageToLoad(String standardPageLoadWaitTime) throws Exception {
+
+	public static void waitForPageToLoad(String standardPageLoadWaitTime)
+			throws Exception {
 		getInstance().waitForPageToLoad(standardPageLoadWaitTime);
 		injectJqueryIfAbsent();
 	}
@@ -241,7 +273,9 @@ public class BrowserDriver {
 	}
 
 	public static void typeKeys(String locator, String searchString) {
-		getInstance().typeKeys(LocatorStrategyIdentifier.prepareforSelenium(locator), searchString);
+		getInstance().typeKeys(
+				LocatorStrategyIdentifier.prepareforSelenium(locator),
+				searchString);
 	}
 
 }

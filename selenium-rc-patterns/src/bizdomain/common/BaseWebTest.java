@@ -8,7 +8,7 @@ import bizdomain.pages.DashBoard;
 import bizdomain.pages.LoginPage;
 
 
-public class BaseWebTest {
+public abstract class BaseWebTest {
 	protected DashBoard homePage;
 	protected LoginPage loginPage;
 	
