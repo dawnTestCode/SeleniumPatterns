@@ -1,1 +1,0 @@
-INDEX VERSION 1.125+/Users/patrick/Documents/workspaces/SeleniumPatterns/.metadata/.plugins/org.eclipse.jdt.core
