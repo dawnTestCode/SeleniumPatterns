@@ -1,0 +1,72 @@
+HtmlUnit's core js is mainly a repakaging of Rhino classes from org.mozilla to net.sourceforge.htmlunit.corejs.
+The diff below contains the other changes made to the original Rhino version.
+
+Index: org/mozilla/javascript/Context.java
+===================================================================
+RCS file: /cvsroot/mozilla/js/rhino/src/org/mozilla/javascript/Context.java,v
+retrieving revision 1.279
+diff -u -r1.279 Context.java
+--- org/mozilla/javascript/Context.java	15 May 2009 12:09:51 -0000	1.279
++++ org/mozilla/javascript/Context.java	6 Jul 2009 08:42:59 -0000
+@@ -315,6 +315,13 @@
+      */
+     public static final int FEATURE_ENHANCED_JAVA_ACCESS = 13;
+ 
++    /**
++     * Special to HtmlUnit's Rhino fork.
++     * Enable assignment to properties with only a getter defined.
++     * This was Rhino's standard behaviour until 1.7R2.
++     * By default {@link #hasFeature(int)} returns false.
++     */
++    public static final int FEATURE_HTMLUNIT_WRITE_READONLY_PROPERTIES = 14;
+ 
+     public static final String languageVersionProperty = "language version";
+     public static final String errorReporterProperty   = "error reporter";
+@@ -1358,7 +1365,7 @@
+                              securityDomain);
+     }
+ 
+-    final Script compileString(String source,
++    protected Script compileString(String source,
+                                Evaluator compiler,
+                                ErrorReporter compilationErrorReporter,
+                                String sourceName, int lineno,
+Index: org/mozilla/javascript/ContextFactory.java
+===================================================================
+RCS file: /cvsroot/mozilla/js/rhino/src/org/mozilla/javascript/ContextFactory.java,v
+retrieving revision 1.34
+diff -u -r1.34 ContextFactory.java
+--- org/mozilla/javascript/ContextFactory.java	15 May 2009 12:09:55 -0000	1.34
++++ org/mozilla/javascript/ContextFactory.java	6 Jul 2009 08:42:59 -0000
+@@ -310,6 +310,7 @@
+             return false;
+ 
+           case Context.FEATURE_ENHANCED_JAVA_ACCESS:
++          case Context.FEATURE_HTMLUNIT_WRITE_READONLY_PROPERTIES:
+             return false;
+         }
+         // It is a bug to call the method with unknown featureIndex
+Index: org/mozilla/javascript/ScriptableObject.java
+===================================================================
+RCS file: /cvsroot/mozilla/js/rhino/src/org/mozilla/javascript/ScriptableObject.java,v
+retrieving revision 1.151
+diff -u -r1.151 ScriptableObject.java
+--- org/mozilla/javascript/ScriptableObject.java	22 Jun 2009 01:08:20 -0000	1.151
++++ org/mozilla/javascript/ScriptableObject.java	6 Jul 2009 08:43:01 -0000
+@@ -2320,9 +2320,16 @@
+             Object setterObj = ((GetterSlot)slot).setter;
+             if (setterObj == null) {
+                 if (((GetterSlot)slot).getter != null) {
++                	if (Context.getContext().hasFeature(Context.FEATURE_HTMLUNIT_WRITE_READONLY_PROPERTIES)) {
++                        // Odd case: Assignment to a property with only a getter 
++                        // defined. The assignment cancels out the getter.
++                        ((GetterSlot)slot).getter = null;
++                	}
++                	else {
+                   // Based on TC39 ES3.1 Draft of 9-Feb-2009, 8.12.4, step 2,
+                   // we should throw a TypeError in this case.
+                   throw ScriptRuntime.typeError1("msg.set.prop.no.setter", name);
++                	}
+                 }
+             } else {
+                 Context cx = Context.getContext();
