@@ -10,14 +10,14 @@ public class CreateTaskPane extends BasePane{
 	public TextField nameField;
 	public SelectField dueSelector;
 	public SelectField categorySelector;
-	public DhtmlLink createButton;
+	public DhtmlLink<DueTodayTaskStrip> createButton;
 	
 	public CreateTaskPane() throws Exception {
 		super();
 		nameField = new TextField("input[id=task_name]");
 		dueSelector = new SelectField("select[id=task_bucket]");
 		categorySelector = new SelectField("select[id=task_category]");
-		createButton = new DhtmlLink("input[id=task_submit]", DueTodayTaskStrip.class);
+		createButton = new DhtmlLink<DueTodayTaskStrip>("input[id=task_submit]", DueTodayTaskStrip.class);
 	}
 	
 	public DueTodayTaskStrip createTask(String dueSelectorEntry, String categorySelectorEntry, String taskName) {

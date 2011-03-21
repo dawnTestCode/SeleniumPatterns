@@ -12,12 +12,12 @@ import bizdomain.pages.TasksPage;
 
 
 public class MultiPageTraverser {
-	private PageLink tasksTab;
-	private PageLink campaignsTab;
-	private PageLink leadsTab;
-	private PageLink accountsTab;
-	private PageLink contactsTab;
-	private PageLink opportunitiesTab;
+	private PageLink<TasksPage> tasksTab;
+	private PageLink<CampaignsPage> campaignsTab;
+	private PageLink<LeadsPage> leadsTab;
+	private PageLink<AccountsPage> accountsTab;
+	private PageLink<ContactsPage> contactsTab;
+	private PageLink<OpportunitiesPage> opportunitiesTab;
 
 	public void verifyForAllPages(Verifiable rule) throws Exception {
 		initializeAllTabs();
@@ -35,22 +35,22 @@ public class MultiPageTraverser {
 	
 	@SuppressWarnings("unused")
 	private void verifyRuleComplianceOnLotsOfPages(Verifiable rule) throws Exception {
-		TasksPage tasksPage = (TasksPage) tasksTab.clickToNewPage();
+		TasksPage tasksPage = tasksTab.clickToNewPage();
 		rule.verify();
 		
-		CampaignsPage campaignsPage = (CampaignsPage) campaignsTab.clickToNewPage();
+		CampaignsPage campaignsPage = campaignsTab.clickToNewPage();
 		rule.verify();
 		
-		LeadsPage leadsPage = (LeadsPage) leadsTab.clickToNewPage();
+		LeadsPage leadsPage = leadsTab.clickToNewPage();
 		rule.verify();
 		
-		AccountsPage accountsPage = (AccountsPage) accountsTab.clickToNewPage();
+		AccountsPage accountsPage = accountsTab.clickToNewPage();
 		rule.verify();
 		
-		ContactsPage contactsPage = (ContactsPage) contactsTab.clickToNewPage();
+		ContactsPage contactsPage = contactsTab.clickToNewPage();
 		rule.verify();
 		
-		OpportunitiesPage opportunitiesPage = (OpportunitiesPage) opportunitiesTab.clickToNewPage();
+		OpportunitiesPage opportunitiesPage = opportunitiesTab.clickToNewPage();
 		rule.verify();
 		
 	}

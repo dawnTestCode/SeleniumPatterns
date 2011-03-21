@@ -7,13 +7,13 @@ import bizdomain.panes.CreateTaskPane;
 
 public class TasksPage extends BasePage {
 	private static final String PAGE_IS_LOADED_CSS = "div:contains('Tasks')";
-	public DhtmlLink createTaskLink;
+	public DhtmlLink<CreateTaskPane> createTaskLink;
 	public TextLabel todayLabel;
 	public TextLabel noPendingTasksLabel;
 	
 	public TasksPage() {
 		super();
-		createTaskLink = new DhtmlLink("div[class=title_tools] a[href=#]", CreateTaskPane.class);
+		createTaskLink = new DhtmlLink<CreateTaskPane>("div[class=title_tools] a[href=#]", CreateTaskPane.class);
 		todayLabel = new TextLabel(PAGE_IS_LOADED_CSS + " div[id=list_due_today]");
 		noPendingTasksLabel = new TextLabel("div[id=empty]");
 	}

@@ -1,15 +1,15 @@
 package util.elements;
 
 
-public class DhtmlLink extends ClickableElement {
-	private Class<?> clazz;
+public class DhtmlLink<T> extends ClickableElement {
+	private Class<T> clazz;
 
-	public DhtmlLink(String locator, Class<?> clazz) {
+	public DhtmlLink(String locator, Class<T> clazz) {
 		super(locator);
 		this.clazz = clazz;
 	}
 
-	public Object clickToNewContainer() {
+	public T clickToNewContainer() {
 		try {
 			click();
 			return clazz.getConstructor().newInstance();

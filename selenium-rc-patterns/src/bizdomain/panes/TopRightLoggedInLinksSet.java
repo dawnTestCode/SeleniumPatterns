@@ -10,16 +10,16 @@ import bizdomain.pages.LoginPage;
 public class TopRightLoggedInLinksSet extends BasePane {
 	public static final String PANE_IS_LOADED_CSS = "div[id=welcome]";
 	public TextLabel welcomeLabel;
-	public DhtmlLink quickFind;
-	public DhtmlLink profile;
-	public DhtmlLink logout;
+	public DhtmlLink<QuickFindBox> quickFind;
+	public DhtmlLink<Profile> profile;
+	public DhtmlLink<LoginPage> logout;
 	
 	public TopRightLoggedInLinksSet()  {
 		super();
 		welcomeLabel = new TextLabel(PANE_IS_LOADED_CSS +" span[id='welcome_username']");
-		quickFind = new DhtmlLink(PANE_IS_LOADED_CSS + " a[id=jumper]", QuickFindBox.class);
-		profile = new DhtmlLink(PANE_IS_LOADED_CSS + " a[href$=profile]", Profile.class);
-		logout = new DhtmlLink(PANE_IS_LOADED_CSS + " a[href$=logout]", LoginPage.class);
+		quickFind = new DhtmlLink<QuickFindBox>(PANE_IS_LOADED_CSS + " a[id=jumper]", QuickFindBox.class);
+		profile = new DhtmlLink<Profile>(PANE_IS_LOADED_CSS + " a[href$=profile]", Profile.class);
+		logout = new DhtmlLink<LoginPage>(PANE_IS_LOADED_CSS + " a[href$=logout]", LoginPage.class);
 	}
 	
 	public boolean isCompletelyLoaded() {

@@ -13,12 +13,10 @@ public class FindAccountTest extends BaseWebTest {
 	
 	@Test
 	public void canFindExistingAccount() throws Exception {
-		QuickFindBox quickFind = (QuickFindBox) CommonComponents.topRightLinks.quickFind.clickToNewContainer();
+		QuickFindBox quickFind = CommonComponents.topRightLinks.quickFind.clickToNewContainer();
 		quickFind.accountsMenuItem.click();
 		
-		SmithamAndSonsPage smithamAndSons = (SmithamAndSonsPage) quickFind.searchForAccount("Smitha", SmithamAndSonsPage.class);
-		assertTrue(smithamAndSons.title.reads("Smitham and Sons"));
+		SmithamAndSonsPage smithamAndSonsPage = (SmithamAndSonsPage) quickFind.searchForAccount("Smitha", SmithamAndSonsPage.class);
+		assertTrue(smithamAndSonsPage.title.reads("Smitham and Sons"));
 	}
-	
-
 }

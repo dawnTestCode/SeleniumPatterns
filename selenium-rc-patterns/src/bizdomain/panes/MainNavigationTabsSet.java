@@ -14,23 +14,22 @@ import bizdomain.pages.TasksPage;
 public class MainNavigationTabsSet  extends BasePane {
 	public static final String PANE_IS_LOADED_CSS = "div[id=tabs]";
 	
-	public PageLink dashBoard;
-	public PageLink tasks;
-	public PageLink campaigns;
-	public PageLink leads;
-	public PageLink accounts;
-	public PageLink contacts;
-	public PageLink opportunities;
-	
+	public PageLink<DashBoard> dashBoard;
+	public PageLink<TasksPage> tasks;
+	public PageLink<CampaignsPage> campaigns;
+	public PageLink<LeadsPage> leads;
+	public PageLink<AccountsPage> accounts;
+	public PageLink<ContactsPage> contacts;
+	public PageLink<OpportunitiesPage> opportunities;
 
 	public MainNavigationTabsSet() { 
-		dashBoard = new PageLink(PANE_IS_LOADED_CSS + " a:contains('Dashboard')", DashBoard.class);
-		tasks = new PageLink(PANE_IS_LOADED_CSS + " a:contains('Tasks')", TasksPage.class);
-		campaigns = new PageLink(PANE_IS_LOADED_CSS + " a:contains('Campaigns')", CampaignsPage.class);
-		leads = new PageLink(PANE_IS_LOADED_CSS + " a:contains('Leads')", LeadsPage.class);
-		accounts = new PageLink(PANE_IS_LOADED_CSS + " a:contains('Accounts')", AccountsPage.class);
-		contacts = new PageLink(PANE_IS_LOADED_CSS + " a:contains('Contacts')", ContactsPage.class);
-		opportunities = new PageLink(PANE_IS_LOADED_CSS + " a:contains('Opportunities')", OpportunitiesPage.class);
+		dashBoard = new PageLink<DashBoard>(PANE_IS_LOADED_CSS + " a:contains('Dashboard')", DashBoard.class);
+		tasks = new PageLink<TasksPage>(PANE_IS_LOADED_CSS + " a:contains('Tasks')", TasksPage.class);
+		campaigns = new PageLink<CampaignsPage>(PANE_IS_LOADED_CSS + " a:contains('Campaigns')", CampaignsPage.class);
+		leads = new PageLink<LeadsPage>(PANE_IS_LOADED_CSS + " a:contains('Leads')", LeadsPage.class);
+		accounts = new PageLink<AccountsPage>(PANE_IS_LOADED_CSS + " a:contains('Accounts')", AccountsPage.class);
+		contacts = new PageLink<ContactsPage>(PANE_IS_LOADED_CSS + " a:contains('Contacts')", ContactsPage.class);
+		opportunities = new PageLink<OpportunitiesPage>(PANE_IS_LOADED_CSS + " a:contains('Opportunities')", OpportunitiesPage.class);
 	}
 
 

@@ -12,13 +12,13 @@ public class LoginPage extends BasePane {
 	
 	private TextField userNameField;
 	private TextField passwordField;
-	private PageLink loginButton;
+	private PageLink<DashBoard> loginButton;
 
 	public LoginPage() {
 		super();
 		userNameField = new TextField("input[id=authentication_username]");
 		passwordField = new TextField("input[id=authentication_password]");
-		loginButton = new PageLink("input[id=authentication_submit]", DashBoard.class);
+		loginButton = new PageLink<DashBoard>("input[id=authentication_submit]", DashBoard.class);
 	}
 
 	@Override
@@ -29,7 +29,7 @@ public class LoginPage extends BasePane {
 	public DashBoard login(String userName, String password) {
 		userNameField.enter(userName);
 		passwordField.enter(password);
-		return (DashBoard) loginButton.clickToNewPage();
+		return loginButton.clickToNewPage();
 		
 	}
 
