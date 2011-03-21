@@ -17,4 +17,9 @@ public class TextField extends ClickableElement {
 		return BrowserDriver.getText(locator);
 	}
 
+	public void typeKeys(String locator, String searchString) throws Exception {
+		BrowserDriver.typeKeys(locator, searchString);
+		Thread.sleep(2000);
+	}
+
 }

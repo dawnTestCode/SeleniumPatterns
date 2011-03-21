@@ -1,10 +1,10 @@
 package util.browserdriver;
 
+import static org.junit.Assert.fail;
+
 import java.io.IOException;
 import java.net.Socket;
-import java.net.UnknownHostException;
 
-import static org.junit.Assert.fail;
 import org.openqa.selenium.server.RemoteControlConfiguration;
 import org.openqa.selenium.server.SeleniumServer;
 

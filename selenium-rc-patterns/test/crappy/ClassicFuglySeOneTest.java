@@ -1,12 +1,15 @@
 package crappy;
 
 import static org.junit.Assert.assertTrue;
+
 import java.net.Socket;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.server.RemoteControlConfiguration;
 import org.openqa.selenium.server.SeleniumServer;
+
 import com.thoughtworks.selenium.DefaultSelenium;
 
 public class ClassicFuglySeOneTest {

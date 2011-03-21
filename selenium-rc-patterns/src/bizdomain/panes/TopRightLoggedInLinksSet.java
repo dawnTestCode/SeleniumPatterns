@@ -7,6 +7,7 @@ import util.elements.TextLabel;
 import bizdomain.pages.LoginPage;
 
 
+@SuppressWarnings("unchecked")
 public class TopRightLoggedInLinksSet extends BasePane {
 	public static final String PANE_IS_LOADED_CSS = "div[id=welcome]";
 	public TextLabel welcomeLabel;

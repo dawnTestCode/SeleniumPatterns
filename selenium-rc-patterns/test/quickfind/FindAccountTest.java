@@ -11,12 +11,12 @@ import bizdomain.panes.QuickFindBox;
 
 public class FindAccountTest extends BaseWebTest {
 	
+	@SuppressWarnings("unchecked")
 	@Test
 	public void canFindExistingAccount() throws Exception {
-		QuickFindBox quickFind = CommonComponents.topRightLinks.quickFind.clickToNewContainer();
-		quickFind.accountsMenuItem.click();
+		QuickFindBox<SmithamAndSonsPage> quickFind = CommonComponents.topRightLinks.quickFind.clickToNewContainer();
 		
-		SmithamAndSonsPage smithamAndSonsPage = (SmithamAndSonsPage) quickFind.searchForAccount("Smitha", SmithamAndSonsPage.class);
+		SmithamAndSonsPage smithamAndSonsPage = quickFind.searchForAccount("Smitha", SmithamAndSonsPage.class);
 		assertTrue(smithamAndSonsPage.title.reads("Smitham and Sons"));
 	}
 }
