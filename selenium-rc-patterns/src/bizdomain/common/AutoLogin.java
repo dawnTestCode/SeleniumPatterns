@@ -8,7 +8,7 @@ public class AutoLogin {
 	
 	public static DashBoard login() throws Exception {
 		LoginPage loginPage = new LoginPage();
-		return loginPage.login("patrickwilsonwelsh", "password");
+		return loginPage.login(LoginPage.USERNAME, LoginPage.PASSWORD);
 	}
 
 }

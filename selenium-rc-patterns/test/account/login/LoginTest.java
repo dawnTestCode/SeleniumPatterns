@@ -14,7 +14,7 @@ public class LoginTest {
 	@Test
 	public void canLoginToFatFreeCRM() throws Exception {
 		BrowserDriver.open(DashBoard.HOME_PAGE_URL);
-		DashBoard homePage = new LoginPage().login("patrickwilsonwelsh", "password");
+		DashBoard homePage = new LoginPage().login(LoginPage.USERNAME, LoginPage.PASSWORD);
 		
 		assertTrue(homePage.isLoaded());
 	}

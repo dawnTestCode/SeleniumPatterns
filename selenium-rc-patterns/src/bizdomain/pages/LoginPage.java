@@ -6,6 +6,10 @@ import util.elements.TextField;
 
 public class LoginPage extends BasePane {
 	public static final String PAGE_IS_LOADED_CSS = "input[id=authentication_username]";
+	
+	public static final String PASSWORD = "seleniumpatterns";
+	public static final String USERNAME = PASSWORD;
+	
 	private TextField userNameField;
 	private TextField passwordField;
 	private PageLink loginButton;

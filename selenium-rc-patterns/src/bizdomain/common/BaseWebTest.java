@@ -9,6 +9,7 @@ import bizdomain.pages.LoginPage;
 
 
 public abstract class BaseWebTest {
+
 	protected DashBoard homePage;
 	protected LoginPage loginPage;
 	
@@ -16,7 +17,7 @@ public abstract class BaseWebTest {
 	public void baseSetupMethod() throws Exception {
 		BrowserDriver.open(DashBoard.HOME_PAGE_URL);
 		loginPage = new LoginPage();
-		homePage = loginPage.login("patrickwilsonwelsh", "password");
+		homePage = loginPage.login(LoginPage.USERNAME, LoginPage.PASSWORD);
 	}
 	
 	@AfterClass

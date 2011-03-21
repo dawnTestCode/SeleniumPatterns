@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import bizdomain.common.BaseWebTest;
 import bizdomain.common.CommonComponents;
-import bizdomain.pages.AccountPage;
+import bizdomain.pages.SmithamAndSonsPage;
 import bizdomain.panes.QuickFindBox;
 
 public class FindAccountTest extends BaseWebTest {
@@ -16,8 +16,8 @@ public class FindAccountTest extends BaseWebTest {
 		QuickFindBox quickFind = (QuickFindBox) CommonComponents.topRightLinks.quickFind.clickToNewContainer();
 		quickFind.accountsMenuItem.click();
 		
-		AccountPage huckabiesPage = (AccountPage) quickFind.searchForAccount("Huckab", AccountPage.class);
-		assertTrue(huckabiesPage.title.reads("Huckabies"));
+		SmithamAndSonsPage smithamAndSons = (SmithamAndSonsPage) quickFind.searchForAccount("Smitha", SmithamAndSonsPage.class);
+		assertTrue(smithamAndSons.title.reads("Smitham and Sons"));
 	}
 	
 

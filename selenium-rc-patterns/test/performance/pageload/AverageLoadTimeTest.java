@@ -54,7 +54,7 @@ public class AverageLoadTimeTest {
 
 	private long timeLoginAndHomePageLoad() {
 		loginPage = new LoginPage();
-		DashBoard homePage = loginPage.login("patrickwilsonwelsh", "password");
+		loginPage.login(LoginPage.USERNAME, LoginPage.PASSWORD);
 		long endTime = System.currentTimeMillis();
 		return endTime;
 	}
