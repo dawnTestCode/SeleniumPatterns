@@ -1,6 +1,5 @@
 package util.elements;
 
-
 public class DhtmlLink<T> extends ClickableElement {
 	private Class<T> clazz;
 
@@ -17,5 +16,4 @@ public class DhtmlLink<T> extends ClickableElement {
 			throw new RuntimeException(e);
 		}
 	}
-	
 }
