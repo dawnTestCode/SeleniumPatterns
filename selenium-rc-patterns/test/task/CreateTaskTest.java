@@ -28,7 +28,7 @@ public class CreateTaskTest extends BaseWebTest {
 	@Test
 	public void canCreateAndCompleteLunchTodayTask() throws Exception {
 		assertTrue(tasksPage.noPendingTasksLabel.isVisible());
-		CreateTaskPane createTaskPane = (CreateTaskPane) tasksPage.createTaskLink.clickToNewContainer();
+		CreateTaskPane createTaskPane = tasksPage.createTaskLink.clickToNewContainer();
 
 		DueTodayTaskStrip taskStrip = createTaskPane.createTask("Today", "Lunch", taskName);
 		assertFalse(tasksPage.noPendingTasksLabel.isVisible());
