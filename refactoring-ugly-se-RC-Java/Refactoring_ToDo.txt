@@ -1,0 +1,18 @@
+Big Chunky Refactoring goals:
+
+Remove references to selenium itself from tests
+
+Extract one Page Object
+
+Extract the HTMl Element objects required by that Page Object
+
+Extract another Page Object
+
+Extract the common Page Object behaviors into a base class
+
+Make the Page Objects self verifying
+
+Create Link objects that "know" how to get to their Page Objects, contextually
+
+Review
+
